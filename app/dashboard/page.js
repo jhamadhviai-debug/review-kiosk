@@ -1,0 +1,185 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { QRCodeCanvas } from 'qrcode.react';
+import { supabase } from '../../lib/supabaseClient';
+
+function slugify(name) {
+  const base = name
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+  const suffix = Math.random().toString(36).slice(2, 6);
+  return `${base}-${suffix}`;
+}
+
+export default function Dashboard() {
+  const router = useRouter();
+  const qrRef = useRef(null);
+
+  const [user, setUser] = useState(null);
+  const [business, setBusiness] = useState(null);
+  const [feedback, setFeedback] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [name, setName] = useState('');
+  const [reviewLink, setReviewLink] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    const load = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) {
+        router.push('/');
+        return;
+      }
+      setUser(data.session.user);
+
+      const { data: businesses } = await supabase
+        .from('businesses')
+        .select('*')
+        .eq('owner_id', data.session.user.id)
+        .limit(1);
+
+      if (businesses && businesses.length > 0) {
+        setBusiness(businesses[0]);
+        const { data: fb } = await supabase
+          .from('feedback')
+          .select('*')
+          .eq('business_id', businesses[0].id)
+          .order('created_at', { ascending: false });
+        setFeedback(fb || []);
+      }
+      setLoading(false);
+    };
+    load();
+  }, [router]);
+
+  const createBusiness = async (e) => {
+    e.preventDefault();
+    setSaving(true);
+    const slug = slugify(name);
+    const { data, error } = await supabase
+      .from('businesses')
+      .insert({
+        owner_id: user.id,
+        name,
+        slug,
+        google_review_link: reviewLink,
+      })
+      .select()
+      .single();
+    setSaving(false);
+    if (error) {
+      alert('Could not save: ' + error.message);
+      return;
+    }
+    setBusiness(data);
+  };
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    router.push('/');
+  };
+
+  const downloadQR = () => {
+    const canvas = qrRef.current?.querySelector('canvas');
+    if (!canvas) return;
+    const url = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${business.slug}-qr.png`;
+    link.click();
+  };
+
+  if (loading) return null;
+
+  const publicUrl =
+    typeof window !== 'undefined' && business
+      ? `${window.location.origin}/r/${business.slug}`
+      : '';
+
+  return (
+    <div className="container">
+      <div className="card">
+        <div className="top-bar">
+          <h1 style={{ fontSize: 20, margin: 0 }}>Dashboard</h1>
+          <button
+            className="secondary"
+            style={{ width: 'auto', padding: '8px 14px', fontSize: 13 }}
+            onClick={signOut}
+          >
+            Sign out
+          </button>
+        </div>
+
+        {!business ? (
+          <>
+            <p className="sub">
+              Set up your business once — this creates your permanent QR code.
+            </p>
+            <form onSubmit={createBusiness}>
+              <input
+                type="text"
+                placeholder="Business name (e.g. Sally's Salon)"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Your Google review link"
+                value={reviewLink}
+                onChange={(e) => setReviewLink(e.target.value)}
+                required
+              />
+              <button type="submit" disabled={saving}>
+                {saving ? 'Saving…' : 'Create my QR code'}
+              </button>
+            </form>
+            <p className="muted" style={{ marginTop: 14 }}>
+              Tip: get your Google review link from your Google Business
+              Profile → "Ask for reviews" → Copy link.
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="sub">{business.name}</p>
+
+            <div className="qr-wrap" ref={qrRef}>
+              <QRCodeCanvas value={publicUrl} size={200} />
+            </div>
+            <button className="secondary" onClick={downloadQR}>
+              Download QR code
+            </button>
+
+            <p className="muted" style={{ marginTop: 20 }}>
+              Your review page:
+            </p>
+            <div className="link-box">{publicUrl}</div>
+
+            <h3 style={{ marginTop: 24 }}>Private feedback</h3>
+            {feedback.length === 0 ? (
+              <p className="muted">
+                Nothing yet — this fills up when a customer taps "Not so
+                good".
+              </p>
+            ) : (
+              feedback.map((f) => (
+                <div className="feedback-item" key={f.id}>
+                  <div className="type">Needs attention</div>
+                  <div>{f.message}</div>
+                  <div className="date">
+                    {new Date(f.created_at).toLocaleString()}
+                  </div>
+                </div>
+              ))
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
