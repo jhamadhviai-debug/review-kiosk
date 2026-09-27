@@ -33,24 +33,40 @@ export async function POST(request) {
     const session = event.data.object;
     const businessId = session.client_reference_id || session.metadata?.businessId;
     if (businessId) {
-      await supabaseAdmin
+      const { error, data } = await supabaseAdmin
         .from('businesses')
         .update({
           plan: 'pro',
           stripe_customer_id: session.customer,
           stripe_subscription_id: session.subscription,
         })
-        .eq('id', businessId);
+        .eq('id', businessId)
+        .select();
+
+      if (error) {
+        console.error('Failed to upgrade business to pro:', businessId, error);
+      } else if (!data || data.length === 0) {
+        console.error('Upgrade update matched 0 rows for businessId:', businessId);
+      }
+    } else {
+      console.error('checkout.session.completed had no businessId in client_reference_id or metadata', session.id);
     }
   }
 
   // Subscription cancelled/ended -> move this business back to Free.
   if (event.type === 'customer.subscription.deleted') {
     const subscription = event.data.object;
-    await supabaseAdmin
+    const { error, data } = await supabaseAdmin
       .from('businesses')
       .update({ plan: 'free' })
-      .eq('stripe_subscription_id', subscription.id);
+      .eq('stripe_subscription_id', subscription.id)
+      .select();
+
+    if (error) {
+      console.error('Failed to downgrade business to free:', subscription.id, error);
+    } else if (!data || data.length === 0) {
+      console.error('Downgrade update matched 0 rows for subscription:', subscription.id);
+    }
   }
 
   return Response.json({ received: true });
