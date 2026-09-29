@@ -9,7 +9,15 @@ function getStripe() {
 }
 
 export async function POST(request) {
-  const { businessId, businessSlug } = await request.json();
+  const { businessId, businessSlug, returnPath } = await request.json();
+
+  // Where to send the owner after Stripe. New no-login dashboards pass
+  // their own /dashboard/<token> path; the old login dashboard passes
+  // nothing and keeps going to /dashboard exactly as before.
+  const safePath =
+    typeof returnPath === 'string' && /^\/dashboard\/[A-Za-z0-9_-]{20,80}$/.test(returnPath)
+      ? returnPath
+      : '/dashboard';
 
   if (!businessId) {
     return Response.json({ error: 'Missing businessId' }, { status: 400 });
@@ -23,8 +31,8 @@ export async function POST(request) {
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
       line_items: [{ price: process.env.STRIPE_PRICE_ID, quantity: 1 }],
-      success_url: `${origin}/dashboard?upgraded=1`,
-      cancel_url: `${origin}/dashboard`,
+      success_url: `${origin}${safePath}?upgraded=1`,
+      cancel_url: `${origin}${safePath}`,
       client_reference_id: businessId,
       metadata: { businessId, businessSlug: businessSlug || '' },
     });
