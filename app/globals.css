@@ -650,3 +650,31 @@ button.ghost {
     max-width: 880px;
   }
 }
+/* Home, guide and dashboard on tablet and desktop */
+@media (min-width: 768px) {
+  .container.site {
+    max-width: 760px;
+  }
+  .site .card {
+    padding: 44px 52px;
+  }
+  .site h1 {
+    font-size: 32px;
+  }
+  .site p.sub {
+    font-size: 17px;
+  }
+  .site .value-grid {
+    flex-direction: row;
+  }
+  .site .value-card {
+    flex: 1;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container.site {
+    max-width: 880px;
+  }
+}
