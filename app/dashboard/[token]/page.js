@@ -168,8 +168,8 @@ export default function TokenDashboard() {
           ))
         )}
 
-        <p className="muted" style={{ marginTop: 22, textAlign: 'center' }}>
-          Need help? Use the chat button in the corner.
+                <p className="muted" style={{ marginTop: 22, textAlign: 'center' }}>
+          Need help? <a href="/guide">Read the guide</a> or use the chat button.
         </p>
       </div>
     </div>
