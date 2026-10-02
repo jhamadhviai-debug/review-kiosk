@@ -70,7 +70,7 @@ const steps = [
 
 export default function Guide() {
   return (
-    <div className="container wide">
+    <div className="container wide site">
       <div className="card">
         <div className="brand-mark">📖</div>
         <h1>How to use Review Kiosk</h1>
