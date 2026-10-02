@@ -610,3 +610,43 @@ button.ghost {
   margin-top: 14px;
   color: var(--primary-dark);
 }
+/* Tablet and desktop only. Phones are not affected. */
+@media (min-width: 768px) {
+  .container.kiosk {
+    max-width: 760px;
+  }
+  .kiosk .card {
+    padding: 44px 52px;
+  }
+  .kiosk h1 {
+    font-size: 32px;
+  }
+  .kiosk p.sub {
+    font-size: 17px;
+  }
+  .kiosk .face-button {
+    padding: 52px 10px;
+    font-size: 64px;
+  }
+
+  .kiosk .method-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .kiosk .method-card {
+    flex: 1 1 40%;
+    flex-direction: column;
+    text-align: center;
+    padding: 28px 20px;
+  }
+  .kiosk .method-grid button.secondary {
+    flex: 1 1 100%;
+  }
+}
+
+/* Big desktop screens */
+@media (min-width: 1200px) {
+  .container.kiosk {
+    max-width: 880px;
+  }
+}
