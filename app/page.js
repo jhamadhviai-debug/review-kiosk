@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [name, setName] = useState('');
@@ -113,6 +114,10 @@ export default function Home() {
         <p className="sub">
           One QR code on your counter does the rest — no app to install, no
           staff training needed.
+        </p>
+
+        <p className="muted" style={{ marginTop: -6, marginBottom: 18 }}>
+          <Link href="/guide">New here? See how it works in 5 steps &rarr;</Link>
         </p>
 
         <div className="value-grid">
@@ -236,6 +241,10 @@ export default function Home() {
               >
                 Forgot your link?
               </span>
+            </p>
+
+            <p className="muted" style={{ marginTop: 10, textAlign: 'center' }}>
+              <Link href="/guide">How does it work? Read the guide</Link>
             </p>
           </>
         ) : forgotSent ? (
