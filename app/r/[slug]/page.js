@@ -214,7 +214,7 @@ export default function ReviewPage() {
   const showHeader = step !== 'done' && step !== 'feedback-done';
 
   return (
-    <div className="container">
+    <div className="container kiosk">
       <div className="card">
         {showHeader && (
           <>
@@ -365,22 +365,42 @@ export default function ReviewPage() {
         {step === 'done' && (
           <>
             <div className="thanks-emoji">🎉</div>
-            <div className="thanks-title">Thank you!</div>
+            <div className="thanks-title">Thank you from {business.name}!</div>
             <p className="thanks-sub sub">
-              Your review means a lot to {business.name}.
+              We really appreciate you taking the time. Your words help{' '}
+              {business.name} grow, and we hope to see you again soon.
             </p>
+            <p className="thanks-sign">The team at {business.name}</p>
           </>
         )}
 
         {step === 'feedback-done' && (
           <>
             <div className="thanks-emoji">🙏</div>
-            <div className="thanks-title">Thanks for letting us know</div>
+            <div className="thanks-title">Thank you for telling {business.name}</div>
             <p className="thanks-sub sub">
-              The owner has been notified privately and will follow up.
+              Your message was sent privately. The owner will read it, and it
+              will help us do better next time.
             </p>
+            <p className="thanks-sign">The team at {business.name}</p>
           </>
         )}
+
+        <div className="privacy-note">
+          <p>
+            🔒 <strong>Your privacy:</strong> if you are not happy, your
+            message goes privately to the owner. It is never posted in public.
+          </p>
+          <details>
+            <summary>More about privacy</summary>
+            <p>
+              Nothing is posted to Google until you tap the Post button. If
+              you speak your review, the recording is sent to an AI service
+              only to turn it into text. We do not save the recording. We do
+              save the review or message you send, so the owner can see it.
+            </p>
+          </details>
+        </div>
       </div>
     </div>
   );

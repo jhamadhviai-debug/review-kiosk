@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import WhatsAppButton from './components/WhatsAppButton';
 
 export default function Home() {
   const [name, setName] = useState('');
@@ -83,9 +85,10 @@ export default function Home() {
     setForgotSent(true);
   };
 
+  // ---------- After sign-up ----------
   if (result) {
     return (
-      <div className="container">
+      <div className="container site">
         <div className="card">
           <div className="brand-mark">⭐</div>
           <h1>You're all set!</h1>
@@ -104,8 +107,10 @@ export default function Home() {
     );
   }
 
+  // ---------- Home page ----------
   return (
-    <div className="container">
+    <div className="container site">
+      <WhatsAppButton />
       <div className="card">
         <div className="brand-mark">⭐</div>
         <span className="hero-eyebrow">FOR LOCAL BUSINESSES</span>
@@ -113,6 +118,10 @@ export default function Home() {
         <p className="sub">
           One QR code on your counter does the rest — no app to install, no
           staff training needed.
+        </p>
+
+        <p className="muted" style={{ marginTop: -6, marginBottom: 18 }}>
+          <Link href="/guide">New here? See how it works in 5 steps &rarr;</Link>
         </p>
 
         <div className="value-grid">
@@ -175,7 +184,11 @@ export default function Home() {
                       <div
                         key={s.placeId}
                         onClick={() => pickSuggestion(s)}
-                        style={{ padding: '10px 12px', cursor: 'pointer', borderBottom: '1px solid #f2f2f2' }}
+                        style={{
+                          padding: '10px 12px',
+                          cursor: 'pointer',
+                          borderBottom: '1px solid #f2f2f2',
+                        }}
                       >
                         <div style={{ fontWeight: 600, fontSize: 14 }}>{s.name}</div>
                         <div className="muted" style={{ fontSize: 12 }}>
@@ -237,6 +250,10 @@ export default function Home() {
                 Forgot your link?
               </span>
             </p>
+
+            <p className="muted" style={{ marginTop: 10, textAlign: 'center' }}>
+              <Link href="/guide">How does it work? Read the guide</Link>
+            </p>
           </>
         ) : forgotSent ? (
           <p>If that email is on file, we've sent your dashboard link.</p>
@@ -254,7 +271,12 @@ export default function Home() {
             </button>
             <p
               className="muted"
-              style={{ textAlign: 'center', marginTop: 10, cursor: 'pointer', textDecoration: 'underline' }}
+              style={{
+                textAlign: 'center',
+                marginTop: 10,
+                cursor: 'pointer',
+                textDecoration: 'underline',
+              }}
               onClick={() => setShowForgot(false)}
             >
               Back

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { QRCodeCanvas } from 'qrcode.react';
-
+import WhatsAppButton from '../../components/WhatsAppButton';
 export default function TokenDashboard() {
   const { token } = useParams();
   const qrRef = useRef(null);
@@ -92,8 +92,9 @@ export default function TokenDashboard() {
   const positiveCount = feedback.filter((f) => f.type === 'positive_review').length;
   const attentionFeedback = feedback.filter((f) => f.type === 'unhappy');
 
-  return (
-    <div className="container">
+    return (
+    <div className="container site">
+      <WhatsAppButton />
       <div className="card">
         <h1 style={{ fontSize: 20, margin: 0 }}>Dashboard</h1>
         <p className="sub">{business.name}</p>
@@ -168,8 +169,8 @@ export default function TokenDashboard() {
           ))
         )}
 
-        <p className="muted" style={{ marginTop: 22, textAlign: 'center' }}>
-          Need help? Use the chat button in the corner.
+                <p className="muted" style={{ marginTop: 22, textAlign: 'center' }}>
+          Need help? <a href="/guide">Read the guide</a> or use the chat button.
         </p>
       </div>
     </div>

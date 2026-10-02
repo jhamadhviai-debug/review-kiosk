@@ -79,3 +79,4 @@ Add these Environment Variables in Vercel:
 5. After creating it, click into the webhook and reveal the **Signing
    secret** (starts with `whsec_...`) — add that as `STRIPE_WEBHOOK_SECRET`
    in Vercel, then redeploy once more.
+Testing the kiosk-updates branch.
