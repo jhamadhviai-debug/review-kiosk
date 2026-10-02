@@ -604,3 +604,9 @@ button.ghost {
   color: var(--primary-dark);
   font-weight: 600;
 }
+.thanks-sign {
+  text-align: center;
+  font-weight: 700;
+  margin-top: 14px;
+  color: var(--primary-dark);
+}
