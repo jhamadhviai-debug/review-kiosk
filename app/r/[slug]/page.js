@@ -365,20 +365,24 @@ export default function ReviewPage() {
         {step === 'done' && (
           <>
             <div className="thanks-emoji">🎉</div>
-            <div className="thanks-title">Thank you!</div>
+            <div className="thanks-title">Thank you from {business.name}!</div>
             <p className="thanks-sub sub">
-              Your review means a lot to {business.name}.
+              We really appreciate you taking the time. Your words help{' '}
+              {business.name} grow, and we hope to see you again soon.
             </p>
+            <p className="thanks-sign">The team at {business.name}</p>
           </>
         )}
 
-                {step === 'feedback-done' && (
+        {step === 'feedback-done' && (
           <>
             <div className="thanks-emoji">🙏</div>
-            <div className="thanks-title">Thanks for letting us know</div>
+            <div className="thanks-title">Thank you for telling {business.name}</div>
             <p className="thanks-sub sub">
-              The owner has been notified privately and will follow up.
+              Your message was sent privately. The owner will read it, and it
+              will help us do better next time.
             </p>
+            <p className="thanks-sign">The team at {business.name}</p>
           </>
         )}
 
