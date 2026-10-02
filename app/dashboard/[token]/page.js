@@ -93,7 +93,7 @@ export default function TokenDashboard() {
   const attentionFeedback = feedback.filter((f) => f.type === 'unhappy');
 
     return (
-    <div className="container">
+    <div className="container site">
       <WhatsAppButton />
       <div className="card">
         <h1 style={{ fontSize: 20, margin: 0 }}>Dashboard</h1>
