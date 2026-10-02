@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-
+import WhatsAppButton from './components/WhatsAppButton';
 export default function Home() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -105,8 +105,9 @@ export default function Home() {
     );
   }
 
-  return (
+    return (
     <div className="container">
+      <WhatsAppButton />
       <div className="card">
         <div className="brand-mark">⭐</div>
         <span className="hero-eyebrow">FOR LOCAL BUSINESSES</span>
