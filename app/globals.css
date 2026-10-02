@@ -568,3 +568,23 @@ button.ghost {
 .thanks-sub {
   text-align: center;
 }
+.wa-float {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  font-size: 28px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.4);
+  z-index: 50;
+}
+.wa-float:hover {
+  transform: translateY(-2px);
+}
