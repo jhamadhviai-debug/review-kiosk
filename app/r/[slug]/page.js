@@ -214,7 +214,7 @@ export default function ReviewPage() {
   const showHeader = step !== 'done' && step !== 'feedback-done';
 
   return (
-    <div className="container">
+    <div className="container kiosk">
       <div className="card">
         {showHeader && (
           <>
