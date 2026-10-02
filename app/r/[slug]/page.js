@@ -372,7 +372,7 @@ export default function ReviewPage() {
           </>
         )}
 
-        {step === 'feedback-done' && (
+                {step === 'feedback-done' && (
           <>
             <div className="thanks-emoji">🙏</div>
             <div className="thanks-title">Thanks for letting us know</div>
@@ -381,6 +381,22 @@ export default function ReviewPage() {
             </p>
           </>
         )}
+
+        <div className="privacy-note">
+          <p>
+            🔒 <strong>Your privacy:</strong> if you are not happy, your
+            message goes privately to the owner. It is never posted in public.
+          </p>
+          <details>
+            <summary>More about privacy</summary>
+            <p>
+              Nothing is posted to Google until you tap the Post button. If
+              you speak your review, the recording is sent to an AI service
+              only to turn it into text. We do not save the recording. We do
+              save the review or message you send, so the owner can see it.
+            </p>
+          </details>
+        </div>
       </div>
     </div>
   );
