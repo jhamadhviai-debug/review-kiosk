@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import WhatsAppButton from './components/WhatsAppButton';
+
 export default function Home() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -84,9 +85,10 @@ export default function Home() {
     setForgotSent(true);
   };
 
+  // ---------- After sign-up ----------
   if (result) {
     return (
-      <div className="container">
+      <div className="container site">
         <div className="card">
           <div className="brand-mark">⭐</div>
           <h1>You're all set!</h1>
@@ -105,8 +107,9 @@ export default function Home() {
     );
   }
 
-    return (
-    <div className="container">
+  // ---------- Home page ----------
+  return (
+    <div className="container site">
       <WhatsAppButton />
       <div className="card">
         <div className="brand-mark">⭐</div>
@@ -181,7 +184,11 @@ export default function Home() {
                       <div
                         key={s.placeId}
                         onClick={() => pickSuggestion(s)}
-                        style={{ padding: '10px 12px', cursor: 'pointer', borderBottom: '1px solid #f2f2f2' }}
+                        style={{
+                          padding: '10px 12px',
+                          cursor: 'pointer',
+                          borderBottom: '1px solid #f2f2f2',
+                        }}
                       >
                         <div style={{ fontWeight: 600, fontSize: 14 }}>{s.name}</div>
                         <div className="muted" style={{ fontSize: 12 }}>
@@ -264,7 +271,12 @@ export default function Home() {
             </button>
             <p
               className="muted"
-              style={{ textAlign: 'center', marginTop: 10, cursor: 'pointer', textDecoration: 'underline' }}
+              style={{
+                textAlign: 'center',
+                marginTop: 10,
+                cursor: 'pointer',
+                textDecoration: 'underline',
+              }}
               onClick={() => setShowForgot(false)}
             >
               Back
