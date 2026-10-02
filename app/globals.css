@@ -1,3 +1,12 @@
+/* ==========================================================================
+   Review Kiosk - global styles
+   1. Base          2. Layout        3. Forms and buttons
+   4. Review page   5. Landing       6. Dashboard
+   7. Utilities     8. Thank-you     9. Privacy note
+   10. WhatsApp     11. Desktop layouts (keep these LAST)
+   ========================================================================== */
+
+/* ---------- 1. Base ---------- */
 * {
   box-sizing: border-box;
 }
@@ -16,7 +25,8 @@
   --radius: 18px;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -28,6 +38,7 @@ body {
   min-height: 100vh;
 }
 
+/* ---------- 2. Layout ---------- */
 .container {
   max-width: 480px;
   margin: 0 auto;
@@ -52,8 +63,14 @@ body {
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .brand-mark {
@@ -82,6 +99,7 @@ p.sub {
   line-height: 1.5;
 }
 
+/* ---------- 3. Forms and buttons ---------- */
 input[type='email'],
 input[type='text'],
 textarea {
@@ -96,7 +114,8 @@ textarea {
   transition: border-color 0.15s ease;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   outline: none;
   border-color: var(--primary);
   background: #fff;
@@ -145,6 +164,8 @@ button.ghost {
   width: auto;
   padding: 8px 4px;
 }
+
+/* ---------- 4. Customer review page ---------- */
 
 /* Face buttons */
 .face-buttons {
@@ -265,9 +286,15 @@ button.ghost {
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(247, 109, 109, 0.45); }
-  70% { box-shadow: 0 0 0 22px rgba(247, 109, 109, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(247, 109, 109, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(247, 109, 109, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 22px rgba(247, 109, 109, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(247, 109, 109, 0);
+  }
 }
 
 .record-timer {
@@ -284,6 +311,7 @@ button.ghost {
   text-align: center;
 }
 
+/* Loading */
 .spinner {
   width: 22px;
   height: 22px;
@@ -295,7 +323,9 @@ button.ghost {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-block {
@@ -355,7 +385,7 @@ button.ghost {
   line-height: 1.5;
 }
 
-/* Landing / value props */
+/* ---------- 5. Landing page / value props ---------- */
 .hero-eyebrow {
   display: inline-block;
   font-size: 12px;
@@ -409,7 +439,7 @@ button.ghost {
   border: none;
 }
 
-/* Dashboard */
+/* ---------- 6. Dashboard ---------- */
 .feedback-item {
   border-bottom: 1px solid var(--border);
   padding: 13px 0;
@@ -537,6 +567,7 @@ button.ghost {
   transition: width 0.3s ease;
 }
 
+/* ---------- 7. Utilities ---------- */
 .muted {
   color: var(--muted);
   font-size: 13px;
@@ -552,6 +583,7 @@ button.ghost {
   text-decoration: underline;
 }
 
+/* ---------- 8. Thank-you screens ---------- */
 .thanks-emoji {
   font-size: 48px;
   text-align: center;
@@ -568,6 +600,35 @@ button.ghost {
 .thanks-sub {
   text-align: center;
 }
+
+.thanks-sign {
+  text-align: center;
+  font-weight: 700;
+  margin-top: 14px;
+  color: var(--primary-dark);
+}
+
+/* ---------- 9. Privacy note (customer page) ---------- */
+.privacy-note {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.privacy-note p {
+  margin: 0 0 6px;
+}
+
+.privacy-note summary {
+  cursor: pointer;
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+/* ---------- 10. WhatsApp button (home page) ---------- */
 .wa-float {
   position: fixed;
   left: 18px;
@@ -585,32 +646,17 @@ button.ghost {
   box-shadow: 0 8px 22px rgba(37, 211, 102, 0.4);
   z-index: 50;
 }
+
 .wa-float:hover {
   transform: translateY(-2px);
 }
-.privacy-note {
-  margin-top: 22px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
-  font-size: 12.5px;
-  color: var(--muted);
-  line-height: 1.5;
-}
-.privacy-note p {
-  margin: 0 0 6px;
-}
-.privacy-note summary {
-  cursor: pointer;
-  color: var(--primary-dark);
-  font-weight: 600;
-}
-.thanks-sign {
-  text-align: center;
-  font-weight: 700;
-  margin-top: 14px;
-  color: var(--primary-dark);
-}
-/* Tablet and desktop only. Phones are not affected. */
+
+/* ==========================================================================
+   11. Desktop layouts. Keep these at the END of the file.
+   Phones (under 768px wide) are not affected by anything below.
+   ========================================================================== */
+
+/* Customer review page (class "kiosk") */
 @media (min-width: 768px) {
   .container.kiosk {
     max-width: 760px;
@@ -644,13 +690,13 @@ button.ghost {
   }
 }
 
-/* Big desktop screens */
 @media (min-width: 1200px) {
   .container.kiosk {
     max-width: 880px;
   }
 }
-/* Home, guide and dashboard on tablet and desktop */
+
+/* Home page, guide and dashboard (class "site") */
 @media (min-width: 768px) {
   .container.site {
     max-width: 760px;
